@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wake Up the Monkey!</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+        #monkey {
+            width: 200px;
+            transition: transform 0.1s;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="text"><h1 id="status">Yash is asleep! call him by clicking on him!</h1></div><br><br>
+    <img id="monkey" src="https://img.freepik.com/free-photo/funny-monkey-sleeping-table_23-2150844229.jpg" alt="Sleeping Monkey" />
+    <div id="message" style="display: none;">Ninni time! 💤</div>
+
+    <script>
+        const monkey = document.getElementById('monkey');
+        const message = document.getElementById('message');
+        const statusText = document.getElementById('status');
+        let clickCount = 0;
+
+        monkey.addEventListener('click', () => {
+            clickCount++;
+
+            // Vibrate the image
+            monkey.style.transform = 'translate(2px, 0)'; // Vibration effect
+            setTimeout(() => {
+                monkey.style.transform = 'translate(-2px, 0)'; // Vibration effect
+            }, 50);
+            setTimeout(() => {
+                monkey.style.transform = 'translate(0, 0)'; // Reset position
+            }, 100);
+
+            if (clickCount < 8) {
+                message.style.display = 'block';
+                statusText.textContent = `Yash is still asleep! you have called him ${clickCount} time${clickCount > 1 ? 's' : ''}. Keep calling!`;
+                
+                // Gradually increase the size of the image
+                const scale = 1 + (clickCount * 0.1); // Scale up gradually
+                monkey.style.transform = `scale(${scale})`; // Apply scaling
+            } else {
+                // Final explosion effect
+                monkey.style.transition = 'transform 0.5s';
+                monkey.style.transform = 'scale(5)'; // "Explode" effect
+                setTimeout(() => {
+                    // Change image to the awake version
+                    monkey.src = "https://media.tenor.com/jJ2LV034TtAAAAAM/cyan-monkey-monkey.gif"; // Awake monkey image URL
+                    monkey.style.transform = 'scale(1)'; // Reset scale after explosion
+                }, 10); // Wait for the explosion effect to complete
+
+                statusText.textContent = "Good Morning babydoll 🌷✨🌷❤️✨🌷✨ I'm sorry, I was asleep thinking about you and was really tired I Love You ❤️! and I miss you so much please talk to me I'm really sorry for not picking up, my Cutuu Baby you mean the world to meee!! mwahh💋"; // Change status text
+                message.innerHTML = 'He woke up!'; // Hide additional message
+            }
+        });
+    </script>
+</body>
+</html>
